@@ -192,9 +192,6 @@ jobs:
         if [ ! -z "$packages" ]; then
           ./continuous-build-wrapper.sh ./build-package.sh -I -a ${{ matrix.target_arch }} $packages
         fi
-    - name: Waiting for debugger
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
     - name: Generate build status and build deps
       run: |
         tar cf build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar ./*.txt ./debs ./artifacts ./output
@@ -264,9 +261,6 @@ jobs:
         if [ ! -z "$packages" ]; then
           ./continuous-build-wrapper.sh ./build-package.sh -I -a ${{ matrix.target_arch }} $packages
         fi
-    - name: Waiting for debugger
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
     - name: Generate build status
       run: |
         tar cf build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar ./*.txt ./debs ./artifacts ./output
@@ -331,9 +325,6 @@ jobs:
         if [ ! -z "$packages" ]; then
           ./continuous-build-wrapper.sh ./build-package.sh -I -a ${{ matrix.target_arch }} $packages
         fi
-    - name: Waiting for debugger
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
     - name: Generate build status
       run: |
         tar cf build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar ./*.txt ./debs ./artifacts ./output
@@ -398,9 +389,6 @@ jobs:
         if [ ! -z "$packages" ]; then
           ./continuous-build-wrapper.sh ./build-package.sh -I -a ${{ matrix.target_arch }} $packages
         fi
-    - name: Waiting for debugger
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
     - name: Generate build status
       run: |
         tar cf build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar ./*.txt ./debs ./artifacts ./output
@@ -465,9 +453,6 @@ jobs:
         if [ ! -z "$packages" ]; then
           ./continuous-build-wrapper.sh ./build-package.sh -I -a ${{ matrix.target_arch }} $packages
         fi
-    - name: Waiting for debugger
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
     - name: Generate build status
       run: |
         tar cf build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar ./*.txt ./debs ./artifacts ./output
@@ -532,9 +517,6 @@ jobs:
         if [ ! -z "$packages" ]; then
           ./continuous-build-wrapper.sh ./build-package.sh -I -a ${{ matrix.target_arch }} $packages
         fi
-    - name: Waiting for debugger
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
     - name: Generate build status
       run: |
         tar cf build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar ./*.txt ./debs ./artifacts ./output
@@ -599,9 +581,6 @@ jobs:
         if [ ! -z "$packages" ]; then
           ./continuous-build-wrapper.sh ./build-package.sh -I -a ${{ matrix.target_arch }} $packages
         fi
-    - name: Waiting for debugger
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
     - name: Generate build status
       run: |
         tar cf build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar ./*.txt ./debs ./artifacts ./output
@@ -666,9 +645,134 @@ jobs:
         if [ ! -z "$packages" ]; then
           ./continuous-build-wrapper.sh ./build-package.sh -I -a ${{ matrix.target_arch }} $packages
         fi
-    - name: Waiting for debugger
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
+    - name: Generate build status
+      run: |
+        tar cf build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar ./*.txt ./debs ./artifacts ./output
+    - name: Upload build status
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-status-${{ matrix.target_arch }}-${{ github.sha }}
+        path: ./build-status
+
+  build-8:
+    runs-on: ubuntu-22.04
+    needs: build-7
+    env:
+      ANDROID_HOME: "/opt/termux/android-sdk"
+      NDK: "/opt/termux/android-ndk"
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      TUR_CONTINUOUS_FLAG: true
+    strategy:
+      matrix:
+        target_arch: [aarch64, arm, i686, x86_64]
+      fail-fast: false
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 1000
+        submodules: true
+    - name: Merge repos
+      run: ./setup-environment.sh
+    - name: Free additional disk space
+      run: |
+        sudo apt purge -yq $(dpkg -l | grep '^ii' | awk '{ print $2 }' | grep -P '(cabal-|dotnet-|ghc-|libmono|php|aspnetcore)') \
+          mono-runtime-common monodoc-manual ruby
+        sudo apt autoremove -yq
+        sudo rm -rf /opt/hostedtoolcache /usr/local /usr/share/dotnet /usr/share/swift
+    - name: Download build deps
+      uses: actions/download-artifact@v3
+      with:
+        name: build-deps-${{ matrix.target_arch }}-${{ github.sha }}
+        path: ./build-deps
+    - name: Download build status
+      uses: actions/download-artifact@v3
+      with:
+        name: build-status-${{ matrix.target_arch }}-${{ github.sha }}
+        path: ./build-status
+    - name: Extract build status
+      run: |
+        tar xf build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar
+        rm -f build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar
+    - name: Build packages
+      run: |
+        if [ "$(cat ./build-status/tur-continuous-finished-flag)" = "true" ]; then
+          exit 0
+        fi
+        declare -a packages
+        for repo_path in $(jq --raw-output 'keys | .[]' repo.json); do
+          repo=$(jq --raw-output '.["'${repo_path}'"].name' repo.json)
+          if [ -f ./built_${repo}_packages.txt ]; then
+            packages="$packages $(cat ./built_${repo}_packages.txt)"
+          fi
+        done
+        if [ ! -z "$packages" ]; then
+          ./continuous-build-wrapper.sh ./build-package.sh -I -a ${{ matrix.target_arch }} $packages
+        fi
+    - name: Generate build status
+      run: |
+        tar cf build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar ./*.txt ./debs ./artifacts ./output
+    - name: Upload build status
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-status-${{ matrix.target_arch }}-${{ github.sha }}
+        path: ./build-status
+
+  build-9:
+    runs-on: ubuntu-22.04
+    needs: build-8
+    env:
+      ANDROID_HOME: "/opt/termux/android-sdk"
+      NDK: "/opt/termux/android-ndk"
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      TUR_CONTINUOUS_FLAG: true
+    strategy:
+      matrix:
+        target_arch: [aarch64, arm, i686, x86_64]
+      fail-fast: false
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 1000
+        submodules: true
+    - name: Merge repos
+      run: ./setup-environment.sh
+    - name: Free additional disk space
+      run: |
+        sudo apt purge -yq $(dpkg -l | grep '^ii' | awk '{ print $2 }' | grep -P '(cabal-|dotnet-|ghc-|libmono|php|aspnetcore)') \
+          mono-runtime-common monodoc-manual ruby
+        sudo apt autoremove -yq
+        sudo rm -rf /opt/hostedtoolcache /usr/local /usr/share/dotnet /usr/share/swift
+    - name: Download build deps
+      uses: actions/download-artifact@v3
+      with:
+        name: build-deps-${{ matrix.target_arch }}-${{ github.sha }}
+        path: ./build-deps
+    - name: Download build status
+      uses: actions/download-artifact@v3
+      with:
+        name: build-status-${{ matrix.target_arch }}-${{ github.sha }}
+        path: ./build-status
+    - name: Extract build status
+      run: |
+        tar xf build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar
+        rm -f build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar
+    - name: Build packages
+      run: |
+        if [ "$(cat ./build-status/tur-continuous-finished-flag)" = "true" ]; then
+          exit 0
+        fi
+        declare -a packages
+        for repo_path in $(jq --raw-output 'keys | .[]' repo.json); do
+          repo=$(jq --raw-output '.["'${repo_path}'"].name' repo.json)
+          if [ -f ./built_${repo}_packages.txt ]; then
+            packages="$packages $(cat ./built_${repo}_packages.txt)"
+          fi
+        done
+        if [ ! -z "$packages" ]; then
+          ./continuous-build-wrapper.sh ./build-package.sh -I -a ${{ matrix.target_arch }} $packages
+        fi
     - name: Generate build status
       run: |
         tar cf build-status/${{ matrix.target_arch }}-${{ github.sha }}.tar ./*.txt ./debs ./artifacts ./output
@@ -680,7 +784,7 @@ jobs:
 
   finished-build:
     runs-on: ubuntu-22.04
-    needs: build-7
+    needs: build-9
     env:
       ANDROID_HOME: "/opt/termux/android-sdk"
       NDK: "/opt/termux/android-ndk"
@@ -718,9 +822,6 @@ jobs:
           echo "[ERROR]: Need more time to build!"
           exit 1
         fi
-    - name: Waiting for debugger
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
     - name: Generate build artifacts
       if: always()
       run: |

@@ -1,0 +1,347 @@
+{
+  "angle-no-android-jni/4389.patch": {
+    "start": 4389
+  },
+  "blink-fix-narrowing/5511.patch": {
+    "start": 5481
+  },
+  "blink-impl-wtf-stacksize/4389.patch": {
+    "start": 4389,
+    "end": 4960
+  },
+  "blink-impl-wtf-stacksize/5249.patch": {
+    "start": 4961
+  },
+  "blink-include-cstring/4961.patch": {
+    "start": 4961,
+    "end": 5005
+  },
+  "breakpad-include-cstring/5249.patch": {
+    "start": 4961,
+    "end": 5413
+  },
+  "breakpad-no-elf_prstatus/4389.patch": {
+    "start": 4389
+  },
+  "chromium-disable-sandbox/5359.patch": {
+    "start": 5359
+  },
+  "chromium-disable-shm/4389.patch": {
+    "start": 4389,
+    "end": 4960
+  },
+  "chromium-disable-shm/5249.patch": {
+    "start": 4961
+  },
+  "chromium-extensions-map/5359.patch": {
+    "start": 5359
+  },
+  "chromium-fill-elf/4389.patch": {
+    "start": 4389
+  },
+  "chromium-fix-type-for-inotify/5249.patch": {
+    "start": 5249
+  },
+  "chromium-freetype/4472.patch": {
+    "start": 4472,
+    "end": 4472
+  },
+  "chromium-headless-disable-sandbox-by-default/5359.patch": {
+    "start": 5359
+  },
+  "chromium-impl-dns/4389.patch": {
+    "start": 4389,
+    "end": 4471
+  },
+  "chromium-impl-dns/4472.patch": {
+    "start": 4472,
+    "end": 4960
+  },
+  "chromium-impl-dns/5249.patch": {
+    "start": 4961,
+    "end": 5358
+  },
+  "chromium-impl-dns/5359.patch": {
+    "start": 5359
+  },
+  "chromium-impl-scoped-file/5249.patch": {
+    "start": 4961
+  },
+  "chromium-impl-sysinfo/4389.patch": {
+    "start": 4389,
+    "end": 4960
+  },
+  "chromium-impl-sysinfo/4961.patch": {
+    "start": 4961,
+    "end": 5248
+  },
+  "chromium-impl-sysinfo/5249.patch": {
+    "start": 5249
+  },
+  "chromium-include-cmath/5249.patch": {
+    "start": 4961
+  },
+  "chromium-include-ctime/4389.patch": {
+    "start": 4389,
+    "end": 4472
+  },
+  "chromium-no-atomic_flag/5249.patch": {
+    "start": 5249,
+    "end": 5358
+  },
+  "chromium-no-atomic_flag/5359.patch": {
+    "start": 5359
+  },
+  "chromium-no-execinfo/4389.patch": {
+    "start": 4389,
+    "end": 4960
+  },
+  "chromium-no-execinfo/5249.patch": {
+    "start": 4961
+  },
+  "chromium-no-futimes/4389.patch": {
+    "start": 4389
+  },
+  "chromium-no-glibc-version/5359.patch": {
+    "start": 5359
+  },
+  "chromium-no-priority-inheritance-locks/4389.patch": {
+    "start": 4389,
+    "end": 4960
+  },
+  "chromium-no-priority-inheritance-locks/5249.patch": {
+    "start": 4961
+  },
+  "chromium-no-set-process-title/4389.patch": {
+    "start": 4389,
+    "end": 4960
+  },
+  "chromium-no-set-process-title/5249.patch": {
+    "start": 4961
+  },
+  "chromium-redefine-termios2/5359.patch": {
+    "start": 5359
+  },
+  "chromium-statfs-type/5249.patch": {
+    "start": 4961,
+    "end": 5413
+  },
+  "chromium-statfs-type/5414.patch": {
+    "start": 5414
+  },
+  "chromium-ui-use-fabsf/5481.patch": {
+    "start": 5481,
+    "end": 5510
+  },
+  "compiler-no-unused-but-set-variable/4389.patch": {
+    "start": 4389,
+    "end": 4472
+  },
+  "compiler-remove-gsimple-template-names/5414.patch": {
+    "start": 5414
+  },
+  "compiler-remove-unsupported-flags/4961.patch": {
+    "start": 4961,
+    "end": 5248
+  },
+  "compiler-remove-unsupported-flags/5249.patch": {
+    "start": 5249,
+    "end": 5358
+  },
+  "compiler-remove-unsupported-flags/5359.patch": {
+    "start": 5359
+  },
+  "compiler-use-android-target/4389.patch": {
+    "start": 4389,
+    "end": 4960
+  },
+  "compiler-use-android-target/4961.patch": {
+    "start": 4961,
+    "end": 5248
+  },
+  "compiler-use-android-target/5249.patch": {
+    "start": 5249,
+    "end": 5413
+  },
+  "compiler-use-android-target/5414.patch": {
+    "start": 5414
+  },
+  "cpuinfo-android-arm/5249.patch": {
+    "start": 5249
+  },
+  "crashpad-no-getdtablesize/4389.patch": {
+    "start": 4389,
+    "end": 4960
+  },
+  "crashpad-no-getdtablesize/5249.patch": {
+    "start": 4961
+  },
+  "crashpad-no-memfd/4389.patch": {
+    "start": 4389,
+    "end": 4960
+  },
+  "crashpad-no-memfd/5249.patch": {
+    "start": 4961
+  },
+  "crashpad-no-spawn/4961.patch": {
+    "start": 4961,
+    "end": 5248
+  },
+  "crashpad-no-spawn/5249.patch": {
+    "start": 5249
+  },
+  "crypt-fix-dynamic-loaded-libraries/4389.patch": {
+    "start": 4389
+  },
+  "dav1d-no-get-affinity/5249.patch": {
+    "start": 4961
+  },
+  "dawn-fix-dynamic-loaded-libraries/4961.patch": {
+    "start": 4961,
+    "end": 5248
+  },
+  "dawn-fix-dynamic-loaded-libraries/5249.patch": {
+    "start": 5249
+  },
+  "dawn-no-android-jni/5359.patch": {
+    "start": 5359
+  },
+  "egl-fix-include/4389.patch": {
+    "start": 4389,
+    "end": 5248
+  },
+  "egl-fix-include/5249.patch": {
+    "start": 5249
+  },
+  "eigen3-use-cxx14/5359.patch": {
+    "start": 5359
+  },
+  "ffmpeg-disable-asm/4389.patch": {
+    "start": 4389,
+    "end": 4472
+  },
+  "fix-compile-errors-when-allocator-shim-is-disabled/4389.patch": {
+    "start": 4389
+  },
+  "gtk-fix-dynamic-loaded-libraries/4472.patch": {
+    "start": 4472,
+    "end": 4960
+  },
+  "gtk-fix-dynamic-loaded-libraries/5359.patch": {
+    "start": 4961,
+    "electron_broken": true
+  },
+  "harfbuzz-remove-unused-vars/4389.patch": {
+    "start": 4389,
+    "end": 4472
+  },
+  "minigbm-no-android-log/5359.patch": {
+    "start": 5359,
+    "end": 5480
+  },
+  "minigbm-no-android-log/5511.patch": {
+    "start": 5481
+  },
+  "ozone-fix-dynamic-loaded-libraries/4389.patch": {
+    "start": 4389,
+    "end": 4471
+  },
+  "ozone-fix-dynamic-loaded-libraries/4472.patch": {
+    "start": 4472,
+    "end": 5480
+  },
+  "perfetto-no-android-jni/5359.patch": {
+    "start": 5359
+  },
+  "pulse-fix-dynamic-loaded-libraries/4389.patch": {
+    "start": 4389
+  },
+  "quiche-dcheck/4389.patch": {
+    "start": 4389,
+    "end": 4389
+  },
+  "script-add-ld-library-path/4389.patch": {
+    "start": 4389
+  },
+  "sql-VirtualCursor-standard-layout/5359.patch": {
+    "start": 5359
+  },
+  "swiftshader-fix-dynamic-loaded-libraries/4389.patch": {
+    "start": 4389,
+    "end": 4960
+  },
+  "swiftshader-fix-dynamic-loaded-libraries/4961.patch": {
+    "start": 4961,
+    "end": 5248
+  },
+  "swiftshader-fix-dynamic-loaded-libraries/5249.patch": {
+    "start": 5249
+  },
+  "swiftshader-no-android/4389.patch": {
+    "start": 4389,
+    "end": 4471
+  },
+  "swiftshader-no-android/4472.patch": {
+    "start": 4472,
+    "end": 4960
+  },
+  "swiftshader-no-android/4961.patch": {
+    "start": 4961,
+    "end": 5248
+  },
+  "swiftshader-no-android/5249.patch": {
+    "start": 5249
+  },
+  "swiftshader-no-spawn/5359.patch": {
+    "start": 5359
+  },
+  "tflite-no-atrace/5249.patch": {
+    "start": 4961
+  },
+  "tflite-use-system-zlib/5359.patch": {
+    "start": 5359,
+    "end": 5413
+  },
+  "unity-fix-dynamic-loaded-libraries/4389.patch": {
+    "start": 4389
+  },
+  "unrar-no-lutimes/4389.patch": {
+    "start": 4389
+  },
+  "v8-do-not-use-builtin-mul/5481.patch": {
+    "start": 5481
+  },
+  "v8-fix-trap-handler/5249.patch": {
+    "start": 4961,
+    "end": 5413
+  },
+  "v8-fix-trap-handler/5414.patch": {
+    "start": 5414
+  },
+  "v8-reimpl-page-allocator/5414.patch": {
+    "start": 5414
+  },
+  "vk-layers-no-android-log/5359.patch": {
+    "start": 5359,
+    "end": 5480
+  },
+  "vk-layers-no-android-log/5511.patch": {
+    "start": 5481
+  },
+  "wayland-memfd_create/5359.patch": {
+    "start": 5359
+  },
+  "webrtc_overrides-include-vector/5414.patch": {
+    "start": 5414,
+    "end": 5480
+  },
+  "weston-fix-dynamic-loaded-libraries/5249.patch": {
+    "start": 4961
+  },
+  "weston-memfd_create/5359.patch": {
+    "start": 5359
+  },
+  "x11-fix-dynamic-loaded-libraries/4389.patch": {
+    "start": 4389
+  }
+}
